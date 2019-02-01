@@ -29,5 +29,5 @@ FOR: 	MOV R5, R6
 CNT: 	B WHILE
 
 FINISH: B FINISH
-N: 		.word 5
+N: 	.word 5
 NUM: 	.word 5, 4, 3, 2, 1
