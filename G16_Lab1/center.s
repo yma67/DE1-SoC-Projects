@@ -21,7 +21,7 @@ NXT: 		ASR R5, R5, R8	 // divide using shift
 		ADD R3, R4, #8
 
 MAP: 		LDR R0, [R3]
-		SUBS R0, R0, R5	 // subtract element, and store in mem
+		SUBS R0, R0, R5	 // R0: subtract element, and store in mem
 		STR R0, [R3], #4
 		SUBS R2, R2, #1	 // branch for, N iterations
 		BEQ DONE
