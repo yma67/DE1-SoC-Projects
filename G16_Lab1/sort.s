@@ -20,7 +20,7 @@ FOR: 		MOV R5, R6	// R5: previous element
 		BGE FOR		// then continue
 		STR R5, [R3]	// else swap in both memory and register and continue
 		STR R6, [R3, #-4]
-		MOV R7, R5
+		MOV R7, R5	// R7: temp in swap
 		MOV R5, R6
 		MOV R6, R7
 		MOV R0, #0
