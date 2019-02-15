@@ -31,4 +31,4 @@ CNT: 		B WHILE
 FINISH: 	B FINISH
 
 N: 		.word 5
-NUM: 		.word 5, 4, 3, 2, 1
+NUM: 		.word 9, 5, 4, 3, 2, -1, -99, -100
