@@ -1,0 +1,73 @@
+
+C:/Users/a8431/Desktop/G21_Lab02/part2/fibonacci.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+				.text
+				.global _start
+				.global main
+_start:			
+				LDR R0, =N				//load N into the R0
+   0:	e59f0054 	ldr	r0, [pc, #84]	; 5c <N+0x4>
+				LDR R0, [R0]
+   4:	e5900000 	ldr	r0, [r0]
+				MOV R4, #0				//clear R4 to store result
+   8:	e3a04000 	mov	r4, #0
+				SUB R1, SP, #4			//store the top of the stack
+   c:	e24d1004 	sub	r1, sp, #4
+				B main
+  10:	eaffffff 	b	14 <main>
+
+00000014 <main>:
+
+main:			PUSH {LR}				//store the original LR
+  14:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+				BL FIB					//go to fibonacci
+  18:	eb000005 	bl	34 <FIB>
+
+0000001c <RETURN>:
+
+RETURN:		POP {R7}				//pop the top of the number				
+  1c:	e49d7004 	pop	{r7}		; (ldr r7, [sp], #4)
+				CMP R1, SP				//if the stack is empty, terminate the algorithm
+  20:	e151000d 	cmp	r1, sp
+				BEQ FINISH
+  24:	0a000008 	beq	4c <FINISH>
+				POP {R0}				//pop the second number, make it -1, and store as the new n				
+  28:	e49d0004 	pop	{r0}		; (ldr r0, [sp], #4)
+				SUB R0, R0, #1
+  2c:	e2400001 	sub	r0, r0, #1
+				BX LR					//this lr goes back to FIB
+  30:	e12fff1e 	bx	lr
+
+00000034 <FIB>:
+
+FIB:			PUSH {R0}				//push the number into the stack
+  34:	e52d0004 	push	{r0}		; (str r0, [sp, #-4]!)
+				CMP R0, #2				//if the number is less than 2, result+1 and start return
+  38:	e3500002 	cmp	r0, #2
+				ADDLT R4, R4, #1
+  3c:	b2844001 	addlt	r4, r4, #1
+				BLLT RETURN
+  40:	bbfffff5 	bllt	1c <RETURN>
+				SUB R0, R0, #1			
+  44:	e2400001 	sub	r0, r0, #1
+				B FIB					//call the fib subroutine again
+  48:	eafffff9 	b	34 <FIB>
+
+0000004c <FINISH>:
+
+FINISH:		POP {LR}
+  4c:	e49de004 	pop	{lr}		; (ldr lr, [sp], #4)
+				B END				//restore LR 
+  50:	eaffffff 	b	54 <END>
+
+00000054 <END>:
+END:			B END
+  54:	eafffffe 	b	54 <END>
+
+00000058 <N>:
+  58:	00000005 	.word	0x00000005
+  5c:	00000058 	.word	0x00000058

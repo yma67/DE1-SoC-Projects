@@ -1,0 +1,114 @@
+
+C:/Users/a8431/Desktop/G21_Lab02/PARTSUB/subroutine.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+			.text
+			.global _start
+			.global main
+
+_start:		
+			LDR R12, =DEFAULT
+   0:	e59fc0b4 	ldr	r12, [pc, #180]	; bc <DEFAULT+0x4>
+			LDR R5, =N
+   4:	e59f50b4 	ldr	r5, [pc, #180]	; c0 <DEFAULT+0x8>
+			LDR R7, [R5]
+   8:	e5957000 	ldr	r7, [r5]
+			MOV R8, #0
+   c:	e3a08000 	mov	r8, #0
+			ADD R6, R5, #4
+  10:	e2856004 	add	r6, r5, #4
+			B main
+  14:	eaffffff 	b	18 <main>
+
+00000018 <main>:
+
+main:		STR R4, [R12, #4]!		//PUSH A STACK FRAME
+  18:	e5ac4004 	str	r4, [r12, #4]!
+			STR LR, [R12, #4]!		//SAVING LR ONTO THE STACK
+  1c:	e5ace004 	str	lr, [r12, #4]!
+			SUB R4, R12, #4			//SETTING UP THE BOTTOM OF THE STACK
+  20:	e24c4004 	sub	r4, r12, #4
+			BL LOOP					//GO TO THE LOOP SUBROUTINE				
+  24:	eb00000a 	bl	54 <LOOP>
+			ADD R12, R4, #4 		
+  28:	e284c004 	add	r12, r4, #4
+			LDMFA R12!, {LR, R4}
+  2c:	e83c4010 	ldmda	r12!, {r4, lr}
+			MOV R0, #0
+  30:	e3a00000 	mov	r0, #0
+			MOV R8, #0
+  34:	e3a08000 	mov	r8, #0
+			STR R4, [R12, #4]!
+  38:	e5ac4004 	str	r4, [r12, #4]!
+			STR LR, [R12, #4]!
+  3c:	e5ace004 	str	lr, [r12, #4]!
+			SUB R4, R12, #4
+  40:	e24c4004 	sub	r4, r12, #4
+			BL FINDMAX
+  44:	eb000008 	bl	6c <FINDMAX>
+			ADD R12, R4, #4 		
+  48:	e284c004 	add	r12, r4, #4
+			LDMFA R12!, {LR, R4}
+  4c:	e83c4010 	ldmda	r12!, {r4, lr}
+			B END
+  50:	ea00000c 	b	88 <END>
+
+00000054 <LOOP>:
+			
+
+LOOP:		CMP R8, R7				
+  54:	e1580007 	cmp	r8, r7
+			BXEQ LR
+  58:	012fff1e 	bxeq	lr
+			ADD R8, R8, #1
+  5c:	e2888001 	add	r8, r8, #1
+			LDR R0, [R6], #4
+  60:	e4960004 	ldr	r0, [r6], #4
+			STR R0, [R12, #4]!
+  64:	e5ac0004 	str	r0, [r12, #4]!
+			B LOOP
+  68:	eafffff9 	b	54 <LOOP>
+
+0000006c <FINDMAX>:
+
+FINDMAX:	CMP R8, R7				
+  6c:	e1580007 	cmp	r8, r7
+			BXEQ LR
+  70:	012fff1e 	bxeq	lr
+			ADD R8, R8, #1
+  74:	e2888001 	add	r8, r8, #1
+			LDR R1, [R12, #4]!
+  78:	e5bc1004 	ldr	r1, [r12, #4]!
+			CMP R0,R1
+  7c:	e1500001 	cmp	r0, r1
+			MOVLT R0,R1
+  80:	b1a00001 	movlt	r0, r1
+			B FINDMAX
+  84:	eafffff8 	b	6c <FINDMAX>
+
+00000088 <END>:
+END:		B END
+  88:	eafffffe 	b	88 <END>
+
+0000008c <N>:
+  8c:	0000000a 	.word	0x0000000a
+
+00000090 <NUMBERS>:
+  90:	00000001 	.word	0x00000001
+  94:	00000063 	.word	0x00000063
+  98:	00000002 	.word	0x00000002
+  9c:	00000003 	.word	0x00000003
+  a0:	00000004 	.word	0x00000004
+  a4:	00000012 	.word	0x00000012
+  a8:	00000016 	.word	0x00000016
+  ac:	00000060 	.word	0x00000060
+  b0:	00000041 	.word	0x00000041
+  b4:	0000001f 	.word	0x0000001f
+
+000000b8 <DEFAULT>:
+  b8:	00000000 	.word	0x00000000
+  bc:	000000b8 	.word	0x000000b8
+  c0:	0000008c 	.word	0x0000008c
