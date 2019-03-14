@@ -32,14 +32,12 @@ int main() {
 			if (PB_edgecap_is_pressed_ASM(0x2)) start = 0; 
 			if (PB_edgecap_is_pressed_ASM(0x4)) {
 				count = 0; 
-				HEX_clear_ASM(HEX0 | HEX1 | HEX2 | HEX3 | HEX4); 
+				HEX_clear_ASM(HEX0 | HEX1 | HEX2 | HEX3 | HEX4 | HEX5); 
 			}
 		}
 		if (HPS_TIM_read_INT_ASM(TIM0)) {
 			HPS_TIM_clear_INT_ASM(TIM0); 
-			if (start) {
-				count = count + 1; 
-			}
+			if (start && ++count == 366099) count = 0; 
 			HEX_write_ASM(HEX0, count % 10); 
 			HEX_write_ASM(HEX1, (count / 10) % 10); 
 			HEX_write_ASM(HEX2, (count / 100) % 10); 
