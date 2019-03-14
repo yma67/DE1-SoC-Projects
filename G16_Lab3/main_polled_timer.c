@@ -30,19 +30,22 @@ int main() {
 			HPS_TIM_clear_INT_ASM(TIM1);
 			if (PB_edgecap_is_pressed_ASM(0x1)) start = 1; 
 			if (PB_edgecap_is_pressed_ASM(0x2)) start = 0; 
-			if (PB_edgecap_is_pressed_ASM(0x4)) count = 0; 
+			if (PB_edgecap_is_pressed_ASM(0x4)) {
+				count = 0; 
+				HEX_clear_ASM(HEX0 | HEX1 | HEX2 | HEX3 | HEX4); 
+			}
 		}
 		if (HPS_TIM_read_INT_ASM(TIM0)) {
 			HPS_TIM_clear_INT_ASM(TIM0); 
 			if (start) {
 				count = count + 1; 
-				HEX_write_ASM(HEX0, count % 10); 
-				HEX_write_ASM(HEX1, (count / 10) % 10); 
-				HEX_write_ASM(HEX2, (count / 100) % 10); 
-				HEX_write_ASM(HEX3, ((count / 100) % 60) / 10);
-				HEX_write_ASM(HEX3, ((count / 100) / 60) % 10);
-				HEX_write_ASM(HEX3, ((count / 100) / 60) / 10 % 10);
 			}
+			HEX_write_ASM(HEX0, count % 10); 
+			HEX_write_ASM(HEX1, (count / 10) % 10); 
+			HEX_write_ASM(HEX2, (count / 100) % 10); 
+			HEX_write_ASM(HEX3, ((count / 100) % 60) / 10);
+			HEX_write_ASM(HEX4, ((count / 100) / 60) % 10);
+			HEX_write_ASM(HEX5, ((count / 100) / 60) / 10 % 10);
 		}
 	}
     return 0; 
