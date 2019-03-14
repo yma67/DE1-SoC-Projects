@@ -3,6 +3,7 @@
 #include "./drivers/inc/slider_switches.h"
 #include "./drivers/inc/pushbuttons.h"
 #include "./drivers/inc/HEX_displays.h"
+#include "./drivers/inc/HPS_TIM.h"
 
 int main() {
     while (1) {
@@ -17,6 +18,6 @@ int main() {
 			HEX_write_ASM(toHEXDisplays, readChar); 
 		}
 		write_LEDs_ASM(readInteger);
-	}
+	} 
     return 0; 
 }

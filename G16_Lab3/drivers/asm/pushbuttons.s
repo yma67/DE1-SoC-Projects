@@ -18,10 +18,13 @@ read_PB_data_ASM:
         BX LR
 
 PB_data_is_pressed_ASM: 
-        PUSH {R1, LR}
+        PUSH {R1, R2}
         LDR R1, =PB_DATA
-        BL VERIFY_BIT
-        POP {R1, LR}
+        LDR R2, [R1]
+		TST R2, R0
+		MOVEQ R0, #0
+		MOVNE R0, #1
+        POP {R1, R2}
         BX LR
 
 read_PB_edgecap_ASM: 
@@ -32,19 +35,20 @@ read_PB_edgecap_ASM:
         BX LR
 
 PB_edgecap_is_pressed_ASM: 
-        PUSH {R1, LR}
-        LDR R1, =PB_EDGE_CAP
-        BL VERIFY_BIT
-        POP {R1, LR}
-        BX LR
-
-PB_clear_edgecp_ASM: 
         PUSH {R1, R2}
         LDR R1, =PB_EDGE_CAP
         LDR R2, [R1]
-        BIC R2, R2, R0
-        STR R2, [R1]
+		TST R2, R0
+		MOVEQ R0, #0
+		MOVNE R0, #1
         POP {R1, R2}
+        BX LR
+
+PB_clear_edgecp_ASM: 
+        PUSH {R1}
+        LDR R1, =PB_EDGE_CAP
+        STR R0, [R1]
+        POP {R1}
         BX LR
 
 enable_PB_INT_ASM: 
@@ -63,16 +67,6 @@ disable_PB_INT_ASM:
         BIC R2, R2, R0
         STR R2, [R1]
         POP {R1, R2}
-        BX LR
-
-VERIFY_BIT: 
-        PUSH {R2, R3}
-        LDR R2, [R1]
-        MOV R3, R0
-        MOV R0, #0
-        TST R3, R2
-        MOVNE R0, #1
-        POP {R2, R3}
         BX LR
 
         .end
