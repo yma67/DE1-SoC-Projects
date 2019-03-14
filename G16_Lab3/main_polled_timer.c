@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include "./drivers/inc/LEDs.h"
+#include "./drivers/inc/slider_switches.h"
+#include "./drivers/inc/pushbuttons.h"
+#include "./drivers/inc/HEX_displays.h"
+#include "./drivers/inc/HPS_TIM.h"
+
+int main() {
+    unsigned int count = 0, start = 0;
+
+	HPS_TIM_config_t hps_tim10ms, hps_tim5ms;
+
+	hps_tim10ms.tim = TIM0;
+	hps_tim10ms.timeout = 10000;
+	hps_tim10ms.LD_en = 1;
+	hps_tim10ms.INT_en = 1;
+	hps_tim10ms.enable = 1;
+
+	hps_tim5ms.tim = TIM1;
+	hps_tim5ms.timeout = 5000;
+	hps_tim5ms.LD_en = 1;
+	hps_tim5ms.INT_en = 1;
+	hps_tim5ms.enable = 1;
+
+	HPS_TIM_config_ASM(&hps_tim10ms);
+	HPS_TIM_config_ASM(&hps_tim5ms);
+
+	while (1) {
+		if (HPS_TIM_read_INT_ASM(TIM1)) {
+			HPS_TIM_clear_INT_ASM(TIM1);
+			if (PB_edgecap_is_pressed_ASM(0x1)) start = 1; 
+			if (PB_edgecap_is_pressed_ASM(0x2)) start = 0; 
+			if (PB_edgecap_is_pressed_ASM(0x4)) count = 0; 
+		}
+		if (HPS_TIM_read_INT_ASM(TIM0)) {
+			HPS_TIM_clear_INT_ASM(TIM0); 
+			if (start) {
+				count = count + 1; 
+				HEX_write_ASM(HEX0, count % 10); 
+				HEX_write_ASM(HEX1, (count / 10) % 10); 
+				HEX_write_ASM(HEX2, (count / 100) % 10); 
+				HEX_write_ASM(HEX3, ((count / 100) % 60) / 10);
+				HEX_write_ASM(HEX3, ((count / 100) / 60) % 10);
+				HEX_write_ASM(HEX3, ((count / 100) / 60) / 10 % 10);
+			}
+		}
+	}
+    return 0; 
+}
