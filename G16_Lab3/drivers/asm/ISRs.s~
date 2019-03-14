@@ -19,11 +19,9 @@
     .global hps_tim0_int_flag
     .global pushbtn_int_flag
 
-hps_tim0_int_flag:  
-	.word 0x0
+hps_tim0_int_flag:  .word 0x0
 
-pushbtn_int_flag:   
-	.word 0x0
+pushbtn_int_flag:   .word 0x0
 
 A9_PRIV_TIM_ISR:
 	BX LR
@@ -58,8 +56,9 @@ FPGA_PB_KEYS_ISR:
     BL read_PB_edgecap_ASM
     LDR R1, =pushbtn_int_flag
     STR R0, [R1]
-    BL PB_clear_edgecp_ASM
+    BL disable_PB_INT_ASM
     POP {R1, LR}
+    BX LR
     BX LR
 	
 FPGA_Audio_ISR:

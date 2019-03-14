@@ -20,7 +20,12 @@
             <source_file filepath="true">drivers/inc/pushbuttons.h</source_file>
             <source_file filepath="true">drivers/inc/HPS_TIM.h</source_file>
             <source_file filepath="true">drivers/asm/HPS_TIM.s</source_file>
-            <source_file filepath="true">main_polled_timer.c</source_file>
+            <source_file filepath="true">drivers/src/int_setup.c</source_file>
+            <source_file filepath="true">drivers/inc/ISRs.h</source_file>
+            <source_file filepath="true">drivers/inc/address_map_arm.h</source_file>
+            <source_file filepath="true">drivers/inc/int_setup.h</source_file>
+            <source_file filepath="true">drivers/asm/ISRs.s</source_file>
+            <source_file filepath="true">main_intr_timer.c</source_file>
         </source_files>
         <options>
             <compiler_flags>-g -O1</compiler_flags>
