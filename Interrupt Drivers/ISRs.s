@@ -16,6 +16,13 @@
 	.global FPGA_JP2_ISR
 	.global FPGA_PS2_DUAL_ISR
 
+    .global hps_tim0_int_flag
+    .global pushbtn_int_flag
+
+hps_tim0_int_flag:  .word 0x0
+
+pushbtn_int_flag:   .word 0x0
+
 A9_PRIV_TIM_ISR:
 	BX LR
 	
@@ -23,6 +30,13 @@ HPS_GPIO1_ISR:
 	BX LR
 	
 HPS_TIM0_ISR:
+    PUSH {LR}
+    MOV R0, #0x1
+    BL HPS_TIM_clear_INT_ASM
+    LDR R0, =hps_tim0_int_flag
+    MOV R1, #1
+    STR R1, [R0]
+    POP {LR}
 	BX LR
 	
 HPS_TIM1_ISR:
@@ -38,7 +52,14 @@ FPGA_INTERVAL_TIM_ISR:
 	BX LR
 	
 FPGA_PB_KEYS_ISR:
-	BX LR
+    PUSH {R1, R2, LR}
+    LDR R2, =PB_INTR_MSK
+    LDR R1, =pushbtn_int_flag
+    LDR R0, [R2]
+    STR R0, [R1]
+    BL disable_PB_INT_ASM
+    POP {R1, R2, LR}
+    BX LR
 	
 FPGA_Audio_ISR:
 	BX LR
