@@ -17,7 +17,7 @@ int main() {
 	hps_tim10ms.enable = 1;
 
 	hps_tim5ms.tim = TIM1;
-	hps_tim5ms.timeout = 3000;
+	hps_tim5ms.timeout = 5000;
 	hps_tim5ms.LD_en = 1;
 	hps_tim5ms.INT_en = 1;
 	hps_tim5ms.enable = 1;
@@ -42,7 +42,6 @@ int main() {
 				}
 				PB_clear_edgecp_ASM(0xF); 
 			}
-			
 		}
 		if (start && HPS_TIM_read_INT_ASM(TIM0)) {
 			HPS_TIM_clear_INT_ASM(TIM0); 

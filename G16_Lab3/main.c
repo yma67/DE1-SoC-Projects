@@ -8,7 +8,7 @@
 int main() {
     while (1) {
 		int readInteger = read_slider_switches_ASM(); 
-		int toHEXDisplays = read_PB_data_ASM() & 0x000000FF; 
+		int toHEXDisplays = read_PB_data_ASM() & 0x0000000F; 
 		char readChar = (char)(readInteger & 0x0000000F); 
 		int isClear = readInteger & 0x00000200; 
 		if (isClear) {
