@@ -148,7 +148,7 @@ void test_intr_timer() {
             start = 1;
 
             pushbtn_int_flag = 0;
-            
+
         } else if (pushbtn_int_flag == 2) {
 
             start = 0;
@@ -165,8 +165,6 @@ void test_intr_timer() {
 			HEX_write_ASM(HEX0 | HEX1 | HEX2 | HEX3 | HEX4 | HEX5, 0);
 
 		}
-
-
 
 		if (start && hps_tim0_int_flag) {
 
