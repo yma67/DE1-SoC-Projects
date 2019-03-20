@@ -4,7 +4,7 @@
 
 void test_char();
 
-void test_byte()
+void test_byte(); 
 
 void test_pixel();
 
@@ -15,7 +15,7 @@ void test_keyboard();
 void make_square_wave(int freq, int sample_rate);
 
 int main() {
-	
+
 	// Uncomment Below for Task A:
 	// test_vga();
 
