@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include "./driver/inc/VGA.h"
-#include "./drivers/inc/int_setup.h"
-#include "./drivers/inc/ISRs.h"
-#include "./drivers/inc/pushbuttons.h"
-#include "./drivers/inc/slider_switches.h"
+#include "./driver/inc/pushbuttons.h"
+#include "./driver/inc/slider_switches.h"
 
 void test_char() {
 	int x, y;
@@ -24,24 +22,18 @@ void test_pixel() {
 }
 
 int main() {
-
-	int_setup(2, (int []){73});
-
-	enable_PB_INT_ASM(PB0 | PB1 | PB2); 
-
+	
 	while(1) {
+		int btn = read_PB_data_ASM(); 
+		if ((btn & PB0) && (read_slider_switches_ASM() != 0)) test_byte();
 
-		if (pushbtn_int_flag == 1 && (read_slider_switches_ASM() != 0)) test_byte();
+		if ((btn & PB0) && (read_slider_switches_ASM() == 0)) test_char();
 
-		if (pushbtn_int_flag == 1 && (read_slider_switches_ASM() == 0)) test_char();
+		if ((btn & PB1)) test_pixel();
 
-		if (pushbtn_int_flag == 2) test_pixel();
+		if ((btn & PB2)) VGA_clear_charbuff_ASM();
 
-		if (pushbtn_int_flag == 4) VGA_clear_charbuff_ASM();
-
-		if (pushbtn_int_flag == 8) VGA_clear_pixelbuff_ASM();
-
-		pushbtn_int_flag = 0;
+		if ((btn & PB3)) VGA_clear_pixelbuff_ASM();
 
 	}
 
