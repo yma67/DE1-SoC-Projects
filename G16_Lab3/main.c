@@ -4,6 +4,7 @@
 #include "./drivers/inc/pushbuttons.h"
 #include "./drivers/inc/HEX_displays.h"
 #include "./drivers/inc/HPS_TIM.h"
+#include "./drivers/inc/ISR.h"
 
 void test_IO();
 
