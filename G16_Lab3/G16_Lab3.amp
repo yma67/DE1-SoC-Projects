@@ -25,7 +25,7 @@
             <source_file filepath="true">drivers/inc/address_map_arm.h</source_file>
             <source_file filepath="true">drivers/inc/int_setup.h</source_file>
             <source_file filepath="true">drivers/asm/ISRs.s</source_file>
-            <source_file filepath="true">main_intr_timer.c</source_file>
+            <source_file filepath="true">main.c</source_file>
         </source_files>
         <options>
             <compiler_flags>-g -O1</compiler_flags>
