@@ -20,7 +20,7 @@
             <source_file filepath="true">drivers/inc/ps2_keyboard.h</source_file>
             <source_file filepath="true">drivers/inc/pushbuttons.h</source_file>
             <source_file filepath="true">drivers/inc/slider_switches.h</source_file>
-            <source_file filepath="true">kbdapp.c</source_file>
+            <source_file filepath="true">main.c</source_file>
         </source_files>
         <options>
             <compiler_flags>-g -O1</compiler_flags>
