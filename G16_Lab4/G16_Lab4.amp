@@ -10,18 +10,17 @@
     <program>
         <type>C Program</type>
         <source_files>
-            <source_file filepath="true">driver/asm/VGA.s</source_file>
-            <source_file filepath="true">driver/asm/audio.s</source_file>
-            <source_file filepath="true">driver/asm/ps2_keyboard.s</source_file>
-            <source_file filepath="true">driver/asm/pushbuttons.s</source_file>
-            <source_file filepath="true">driver/asm/slider_switches.s</source_file>
-            <source_file filepath="true">driver/inc/VGA.h</source_file>
-            <source_file filepath="true">driver/inc/audio.h</source_file>
-            <source_file filepath="true">driver/inc/ps2_keyboard.h</source_file>
-            <source_file filepath="true">driver/inc/pushbuttons.h</source_file>
-            <source_file filepath="true">driver/inc/slider_switches.h</source_file>
-            <source_file filepath="true">driver/inc/audio.h</source_file>
-            <source_file filepath="true">audio.c</source_file>
+            <source_file filepath="true">drivers/asm/VGA.s</source_file>
+            <source_file filepath="true">drivers/asm/audio.s</source_file>
+            <source_file filepath="true">drivers/asm/ps2_keyboard.s</source_file>
+            <source_file filepath="true">drivers/asm/pushbuttons.s</source_file>
+            <source_file filepath="true">drivers/asm/slider_switches.s</source_file>
+            <source_file filepath="true">drivers/inc/VGA.h</source_file>
+            <source_file filepath="true">drivers/inc/audio.h</source_file>
+            <source_file filepath="true">drivers/inc/ps2_keyboard.h</source_file>
+            <source_file filepath="true">drivers/inc/pushbuttons.h</source_file>
+            <source_file filepath="true">drivers/inc/slider_switches.h</source_file>
+            <source_file filepath="true">kbdapp.c</source_file>
         </source_files>
         <options>
             <compiler_flags>-g -O1</compiler_flags>
