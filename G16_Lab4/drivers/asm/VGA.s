@@ -7,7 +7,7 @@
 		.global VGA_write_byte_ASM
 		.global VGA_draw_point_ASM
 
-VGA_clear_charbuff_ASM: 
+VGA_clear_charbuff_ASM:
 		PUSH {R0, R1, R2, R3, R4, R5}
 		LDR R5, =CHAR_BASE
 		MOV R1, #59
@@ -23,7 +23,7 @@ MAP_C:	ADD R3, R2, R1, LSL #7
 		POP {R0, R1, R2, R3, R4, R5}
 		BX LR
 
-VGA_clear_pixelbuff_ASM: 
+VGA_clear_pixelbuff_ASM:
 		PUSH {R0, R1, R2, R3, R4, R5}
 		LDR R5, =PIXEL_BASE
 		MOV R1, #239
@@ -40,7 +40,7 @@ MAP_CP:	ADD R3, R2, R1, LSL #9
 		POP {R0, R1, R2, R3, R4, R5}
 		BX LR
 
-VGA_write_char_ASM: 
+VGA_write_char_ASM:
 		PUSH {R3, R4, R5}
 		CMP R0, #0
 		BLT FWC
@@ -57,7 +57,7 @@ VGA_write_char_ASM:
 		POP {R3, R4, R5}
 FWC: 	BX LR
 
-VGA_write_byte_ASM: 
+VGA_write_byte_ASM:
 		PUSH {R3, R4, R5, R6, R7, R8, R9}
 		CMP R0, #0
 		BLT FWB
@@ -81,7 +81,7 @@ VGA_write_byte_ASM:
 		POP {R3, R4, R5, R6, R7, R8, R9}
 FWB: 	BX LR
 
-VGA_draw_point_ASM: 
+VGA_draw_point_ASM:
 		PUSH {R3, R4, R5, R6}
 		CMP R0, #0
 		BLT FWP
@@ -100,6 +100,6 @@ VGA_draw_point_ASM:
 		POP {R3, R4, R5, R6}
 FWP: 	BX LR
 
-LOOKUP: .byte 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68, 69, 70
+LOOKUP: .byte	48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68, 69, 70
 
 		.end
