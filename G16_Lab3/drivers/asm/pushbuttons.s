@@ -17,7 +17,7 @@ read_PB_data_ASM:
         POP {R1, LR}
         BX LR
 
-PB_data_is_pressed_ASM: 
+PB_data_is_pressed_ASM:
         PUSH {R1, R2}
         LDR R1, =PB_DATA
         LDR R2, [R1]
@@ -27,14 +27,14 @@ PB_data_is_pressed_ASM:
         POP {R1, R2}
         BX LR
 
-read_PB_edgecap_ASM: 
-        PUSH {R1, LR}
+read_PB_edgecap_ASM:
+        PUSH {R1}
         LDR R1, =PB_EDGE_CAP
         LDR R0, [R1]
-        POP {R1, LR}
+        POP {R1}
         BX LR
 
-PB_edgecap_is_pressed_ASM: 
+PB_edgecap_is_pressed_ASM:
         PUSH {R1, R2}
         LDR R1, =PB_EDGE_CAP
         LDR R2, [R1]
@@ -44,14 +44,14 @@ PB_edgecap_is_pressed_ASM:
         POP {R1, R2}
         BX LR
 
-PB_clear_edgecp_ASM: 
+PB_clear_edgecp_ASM:
         PUSH {R1}
         LDR R1, =PB_EDGE_CAP
         STR R0, [R1]
         POP {R1}
         BX LR
 
-enable_PB_INT_ASM: 
+enable_PB_INT_ASM:
         PUSH {R1, R2}
         LDR R1, =PB_INTR_MSK
         LDR R2, [R1]
