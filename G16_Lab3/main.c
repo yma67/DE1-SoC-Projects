@@ -5,6 +5,7 @@
 #include "./drivers/inc/HEX_displays.h"
 #include "./drivers/inc/HPS_TIM.h"
 #include "./drivers/inc/ISRs.h"
+#include "./drivers/inc/int_setup.h"
 
 void test_IO();
 
@@ -142,20 +143,30 @@ void test_intr_timer() {
 
 	while (1) {
 
-		if (pushbtn_int_flag == 1) start = 1;
+		if (pushbtn_int_flag == 1) {
 
-        else if (pushbtn_int_flag == 2) start = 0;
+            start = 1;
 
-        else if (pushbtn_int_flag == 4) {
+            pushbtn_int_flag = 0;
+            
+        } else if (pushbtn_int_flag == 2) {
+
+            start = 0;
+
+            pushbtn_int_flag = 0;
+
+        } else if (pushbtn_int_flag == 4) {
 
 			start = 0;
 			count = 0;
+
+            pushbtn_int_flag = 0;
 
 			HEX_write_ASM(HEX0 | HEX1 | HEX2 | HEX3 | HEX4 | HEX5, 0);
 
 		}
 
-        pushbtn_int_flag = 0;
+
 
 		if (start && hps_tim0_int_flag) {
 
