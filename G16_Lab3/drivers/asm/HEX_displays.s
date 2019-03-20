@@ -22,7 +22,7 @@ HEX_flood_ASM:
 HEX_write_ASM:
         PUSH {R1, R2, R3, LR}
         LDR R2, =LOOKUP
-        LDR R3, [R2, R1]
+        LDRB R3, [R2, R1]
         MOV R1, R3
         BL LOAD_MULTIPLE_VAR
         POP {R1, R2, R3, LR}
