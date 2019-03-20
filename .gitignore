@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# ARM
+*.axf
+*.objdump
+*.srec
