@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "./driver/inc/VGA.h"
+#include "./driver/inc/audio.h"
 #include "./driver/inc/ps2_keyboard.h"
+#include "./driver/inc/pushbuttons.h"
+#include "./driver/inc/slider_switches.h"
 
 void test_char();
 
