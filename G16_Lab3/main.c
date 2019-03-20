@@ -25,6 +25,7 @@ int main() {
     // test_intr_timer();
 
     return 0;
+    
 }
 
 void test_IO() {
@@ -100,9 +101,10 @@ void test_polled_timer() {
 
 				}
 
-				PB_clear_edgecp_ASM(0xF);
+				PB_clear_edgecp_ASM(HEX0 | HEX1 | HEX2 | HEX3 | HEX4 | HEX5);
 
 			}
+
 		}
 
 		if (start && HPS_TIM_read_INT_ASM(TIM0)) {
