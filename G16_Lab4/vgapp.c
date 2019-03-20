@@ -1,7 +1,9 @@
 #include <stdio.h>
-#include "./driver/inc/VGA.h"
-#include "./driver/inc/pushbuttons.h"
-#include "./driver/inc/slider_switches.h"
+#include "./drivers/inc/VGA.h"
+#include "./drivers/inc/pushbuttons.h"
+#include "./drivers/inc/slider_switches.h"
+#include "./drivers/inc/ps2_keyboard.h"
+#include "./drivers/inc/audio.h"
 
 void test_char() {
 	int x, y;
@@ -21,21 +23,73 @@ void test_pixel() {
 	for (y = 0; y <= 239; y++) for (x = 0; x <= 319; x++) VGA_draw_point_ASM(x, y, colour++);
 }
 
-int main() {
-	
+void test_vga() {
+
+	VGA_clear_charbuff_ASM();
+
+	VGA_clear_pixelbuff_ASM();
+
 	while(1) {
-		int btn = read_PB_data_ASM(); 
+
+		int btn = read_PB_data_ASM();
+
 		if ((btn & PB0) && (read_slider_switches_ASM() != 0)) test_byte();
 
 		if ((btn & PB0) && (read_slider_switches_ASM() == 0)) test_char();
 
-		if ((btn & PB1)) test_pixel();
+		if (btn & PB1) test_pixel();
 
-		if ((btn & PB2)) VGA_clear_charbuff_ASM();
+		if (btn & PB2) VGA_clear_charbuff_ASM();
 
-		if ((btn & PB3)) VGA_clear_pixelbuff_ASM();
+		if (btn & PB3) VGA_clear_pixelbuff_ASM();
 
 	}
+}
+
+void test_keyboard() {
+
+	int x = 0, y = 0;
+
+	char read;
+
+	VGA_clear_charbuff_ASM();
+
+	VGA_clear_pixelbuff_ASM();
+
+	while(1) {
+
+		if (read_PS2_data_ASM(&read)) {
+
+			VGA_write_byte_ASM(x, y, read);
+
+			if (x == 78) y = (y + 1) % 60;
+
+			x = (x + 3) % 81;
+
+		}
+
+	}
+
+}
+
+void make_square_wave(int freq, int sample_rate) {
+
+	int count = 0, full_wave = (sample_rate / freq), half_wave = full_wave >> 1;
+
+	while (1) if (write_audio_LR_ASM((count < half_wave) ? 0x00FFFFFF : 0x00000000)) count = (count + 1) % (full_wave);
+
+}
+
+int main() {
+
+	// Uncomment Below for Task A:
+	// test_vga();
+
+	// Uncomment Below for Task B:
+	// test_keyboard();
+
+	// Uncomment Below for Task C:
+	// make_square_wave(100, 48000);
 
 	return 0;
 
