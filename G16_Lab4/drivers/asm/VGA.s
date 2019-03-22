@@ -28,8 +28,7 @@ VGA_clear_pixelbuff_ASM:
 		LDR R5, =PIXEL_BASE
 		MOV R1, #239
 		MOV R4, #0
-MAP_RP: MOV R2, #0b00111111
-		MOVT R2, #1
+MAP_RP: MOVW R6, #319
 MAP_CP:	ADD R3, R2, R1, LSL #9
 		ADD R3, R5, R3, LSL #1
 		STRH R4, [R3]
@@ -51,8 +50,8 @@ VGA_write_char_ASM:
 		CMP R1, #59
 		BGT FWC
 		LDR R5, =CHAR_BASE
-		ORR R3, R0, R1, LSL #7
-		ORR R3, R3, R5
+		ADD R3, R0, R1, LSL #7
+		ADD R3, R3, R5
 		STRB R2, [R3]
 		POP {R3, R4, R5}
 FWC: 	BX LR
@@ -74,8 +73,8 @@ VGA_write_byte_ASM:
 		LDR R8, =LOOKUP
 		LDRB R6, [R8, R4]
 		LDRB R7, [R8, R9]
-		ORR R3, R0, R1, LSL #7
-		ORR R3, R3, R5
+		ADD R3, R0, R1, LSL #7
+		ADD R3, R3, R5
 		STRB R7, [R3]
 		STRB R6, [R3, #1]
 		POP {R3, R4, R5, R6, R7, R8, R9}
@@ -87,15 +86,14 @@ VGA_draw_point_ASM:
 		BLT FWP
 		CMP R1, #0
 		BLT FWP
-		MOV R6, #0b00111111
-		MOVT R6, #1
+		MOVW R6, #319
 		CMP R0, R6
 		BGT FWP
 		CMP R1, #239
 		BGT FWP
 		LDR R5, =PIXEL_BASE
-		ORR R3, R0, R1, LSL #9
-		ORR R3, R5, R3, LSL #1
+		ADD R3, R0, R1, LSL #9
+		ADD R3, R5, R3, LSL #1
 		STRH R2, [R3]
 		POP {R3, R4, R5, R6}
 FWP: 	BX LR
