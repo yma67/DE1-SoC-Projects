@@ -26,7 +26,7 @@ int main() {
 	// test_keyboard();
 
 	// Uncomment Below for Task C:
-	// make_square_wave(100, 48000);
+	make_square_wave(100, 48000);
 
 	return 0;
 }
