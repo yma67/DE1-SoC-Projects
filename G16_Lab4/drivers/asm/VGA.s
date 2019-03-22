@@ -28,7 +28,7 @@ VGA_clear_pixelbuff_ASM:
 		LDR R5, =PIXEL_BASE
 		MOV R1, #239
 		MOV R4, #0
-MAP_RP: MOVW R6, #319
+MAP_RP: MOVW R2, #319
 MAP_CP:	ADD R3, R2, R1, LSL #9
 		ADD R3, R5, R3, LSL #1
 		STRH R4, [R3]
