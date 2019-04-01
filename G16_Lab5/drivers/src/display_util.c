@@ -1,4 +1,5 @@
-##include "../inc/display_util.h"
+#include "../inc/display_util.h"
+#include "../inc/vga.h"
 
 void note_to_pixel(int ** pixel_vector, int signal) {
 	int i = 0, j = 0;
