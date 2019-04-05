@@ -23,7 +23,7 @@ int main() {
 	// Application States declearation
 	int display[VGA_COL_LEN];
 	int is_specific_btn_pressed[NUM_NOTES];
-	int current_pixels[VGA_COL_LEN]; 
+	int current_pixels[VGA_COL_LEN];
 	int is_break = 0;
 	int ampl = 5;
 	int instance = 0;
@@ -35,7 +35,7 @@ int main() {
 	VGA_clear_pixelbuff_ASM();
 
 	// Transfer Variables
-	double signal = 0;
+	int signal = 0;
 	char to_read = 0;
 
 	// Interrupt Timer for Sampling
@@ -51,6 +51,9 @@ int main() {
 
 	HPS_TIM_config_ASM(&hps_tim_aud);
 
+	// Utility
+	int refresh = 48000 / RENDER_FREQ;
+
 	// Point of Injection
 	while(1) {
 
@@ -60,15 +63,15 @@ int main() {
 
 			hps_tim0_int_flag = 0;
 
-			audio_write_data_ASM(signal * 8, signal * 8);
+			audio_write_data_ASM(signal << 3, signal << 3);
 
 			synthesis_sound(&signal, is_specific_btn_pressed, &instance, ampl);
 
-			int col = instance % (48000 / RENDER_FREQ); 
-			
-			if (col >=0 && col <=319) current_pixels[col] = signal; 
+			int col = instance % (refresh);
 
-			if (col % (48000 / RENDER_FREQ) == 320) render(display, current_pixels, ampl, is_specific_btn_pressed);
+			if (col >=0 && col <=319) current_pixels[col] = signal;
+
+			if (col % (refresh) == 319) render(display, current_pixels, ampl, is_specific_btn_pressed);
 
 		}
 
