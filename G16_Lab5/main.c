@@ -26,27 +26,25 @@ int main() {
 	int instance = 0;
 
 	// Application States initiallization
-	int i = 0, j = 0;
-	for (i = 0; i < VGA_ROW_LEN; i++) for (j = 0; j < VGA_COL_LEN; j++) display[i][j] = 0;
-	for (i = 0; i < NUM_NOTES; i++) is_specific_btn_pressed[i] = 0;
+	clear_signal(display); 
+	clear_ispressed(is_specific_btn_pressed); 
 
 	// Transfer Variables
 	int signal = 0;
 	char to_read = 0;
 
-
 	// Interrupt Timer for Sampling
 	int_setup(1, (int []){199});
 
-	HPS_TIM_config_t hps_tim;
+	HPS_TIM_config_t hps_tim_aud;
 
-	hps_tim.tim = TIM0;
-	hps_tim.timeout = 20;
-	hps_tim.LD_en = 1;
-	hps_tim.INT_en = 1;
-	hps_tim.enable = 1;
+	hps_tim_aud.tim = TIM0;
+	hps_tim_aud.timeout = 20;
+	hps_tim_aud.LD_en = 1;
+	hps_tim_aud.INT_en = 1;
+	hps_tim_aud.enable = 1;
 
-	HPS_TIM_config_ASM(&hps_tim);
+	HPS_TIM_config_ASM(&hps_tim_aud);
 
 	// Point of Injection
 	while(1) {
@@ -55,14 +53,13 @@ int main() {
 
 		if(hps_tim0_int_flag == 1) {
 
-			hps_tim0_int_flag = 0;
-
-			synthesis_sound(&signal, is_specific_btn_pressed, &instance, &ampl);
+			hps_tim0_int_flag = 0; 
 
 			audio_write_data_ASM(signal, signal);
 
-			// Render at about 96 frames per second
-			if (instance % 500 == 0) render(display, &ampl, &signal, is_specific_btn_pressed);
+			synthesis_sound(&signal, is_specific_btn_pressed, &instance, &ampl);
+
+			if (instance % 1600 == 0) render(display, &ampl, signal, is_specific_btn_pressed);
 
 		}
 
