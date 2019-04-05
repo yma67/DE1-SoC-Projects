@@ -10,6 +10,8 @@
 #include "./drivers/inc/ps2_keyboard.h"
 #include "./drivers/inc/HEX_displays.h"
 #include "./drivers/inc/slider_switches.h"
+
+// Controller Interface: stateless functions
 #include "./drivers/inc/display_util.h"
 #include "./drivers/inc/sound_util.h"
 #include "./drivers/inc/kbd_listener_util.h"
