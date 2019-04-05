@@ -19,15 +19,15 @@
 int main() {
 
 	// Application States declearation
-	int display[VGA_ROW_LEN][VGA_COL_LEN];
+	int display[VGA_COL_LEN];
 	int is_specific_btn_pressed[NUM_NOTES];
 	int is_break = 0;
 	int ampl = 5;
 	int instance = 0;
 
 	// Application States initiallization
-	clear_signal(display); 
-	clear_ispressed(is_specific_btn_pressed); 
+	clear_signal(display);
+	clear_ispressed(is_specific_btn_pressed);
 
 	// Transfer Variables
 	int signal = 0;
@@ -53,13 +53,13 @@ int main() {
 
 		if(hps_tim0_int_flag == 1) {
 
-			hps_tim0_int_flag = 0; 
+			hps_tim0_int_flag = 0;
 
 			audio_write_data_ASM(signal, signal);
 
 			synthesis_sound(&signal, is_specific_btn_pressed, &instance, &ampl);
 
-			if (instance % 1600 == 0) render(display, &ampl, signal, is_specific_btn_pressed);
+			if (instance % 20 == 0) render(display, ampl, signal, is_specific_btn_pressed, iinstance, rate);
 
 		}
 
