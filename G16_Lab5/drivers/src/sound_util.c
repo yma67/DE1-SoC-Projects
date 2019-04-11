@@ -16,17 +16,3 @@ int make_wave(int instant, float frequency) {
 	return (1.0 - interpolation) * (float)sine[(int)index] +
 				 (interpolation) * (float)sine[(int)index + 1];
 }
-
-void synthesis_sound(int * signal, int is_pressed[], int * instance, int volume) {
-	int i = 0, count_note = 0;
-	int total = 0;
-	for (i = 0; i < NUM_NOTES; i++) {
-		if (is_pressed[i]) {
-			total = total + make_wave(*instance, NOTE_LOOKUP[i]);
-			count_note = count_note + 1;
-		}
-	}
-	if (count_note > 0) *signal = (total * volume) / (10 * count_note);
-	else *signal = 0;
-    *instance = (*instance + 1) % 48000;
-}

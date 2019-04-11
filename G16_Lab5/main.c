@@ -14,7 +14,6 @@
 // Controller Interface: stateless functions
 #include "./drivers/inc/display_util.h"
 #include "./drivers/inc/sound_util.h"
-#include "./drivers/inc/kbd_listener_util.h"
 
 #define RENDER_FREQ 5
 
@@ -226,7 +225,7 @@ int main() {
 				VGA_draw_point_ASM(col, display[col], 0xFA0B);
 			}
 			if (col == refresh - 1) {
-				render(ampl, is_specific_btn_pressed); 
+				render(ampl, is_specific_btn_pressed);
 			}
 
 		}
