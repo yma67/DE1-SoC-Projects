@@ -1,4 +1,5 @@
-# ece324lab
+# DE1 SoC Software System Projects
+### C and ARMv7 Assembly as Software Systems
 
 # Director: BOSS LI
 
