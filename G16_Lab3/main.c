@@ -40,18 +40,18 @@ void test_IO() {
 void test_polled_timer() {
     unsigned int count = 0, start = 0;
     HPS_TIM_config_t hps_tim10ms = {
-        .tim = TIM0;
-        .timeout = 10000;
-        .LD_en = 1;
-        .INT_en = 1;
-        .enable = 1;
+        .tim = TIM0,
+        .timeout = 10000,
+        .LD_en = 1,
+        .INT_en = 1,
+        .enable = 1
     };
     HPS_TIM_config_t hps_tim5ms = {
-        .tim = TIM1;
-        .timeout = 5000;
-        .LD_en = 1;
-        .INT_en = 1;
-        .enable = 1;
+        .tim = TIM1,
+        .timeout = 5000,
+        .LD_en = 1,
+        .INT_en = 1,
+        .enable = 1
     };
     HPS_TIM_config_ASM(&hps_tim10ms);
     HPS_TIM_config_ASM(&hps_tim5ms);
@@ -90,11 +90,11 @@ void test_intr_timer() {
     enable_PB_INT_ASM(PB0 | PB1 | PB2);
     unsigned int count = 0, start = 0;
     HPS_TIM_config_t hps_tim10ms = {
-        .tim = TIM0;
-        .timeout = 10000;
-        .LD_en = 1;
-        .INT_en = 1;
-        .enable = 1;
+        .tim = TIM0,
+        .timeout = 10000,
+        .LD_en = 1,
+        .INT_en = 1,
+        .enable = 1
     };
     HPS_TIM_config_ASM(&hps_tim10ms);
     while (1) {
