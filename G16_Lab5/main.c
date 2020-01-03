@@ -18,7 +18,6 @@
 #define RENDER_FREQ 5
 
 int main() {
-
     // Application States declearation
     int display[VGA_COL_LEN];
     char is_specific_btn_pressed[NUM_NOTES];
@@ -39,14 +38,13 @@ int main() {
     // Interrupt Timer for Sampling
     int_setup(1, (int []){199});
 
-    HPS_TIM_config_t hps_tim_aud;
-
-    hps_tim_aud.tim = TIM0;
-    hps_tim_aud.timeout = 20;
-    hps_tim_aud.LD_en = 1;
-    hps_tim_aud.INT_en = 1;
-    hps_tim_aud.enable = 1;
-
+    HPS_TIM_config_t hps_tim_aud = {
+        .tim = TIM0,
+        .timeout = 20,
+        .LD_en = 1,
+        .INT_en = 1,
+        .enable = 1
+    };
     HPS_TIM_config_ASM(&hps_tim_aud);
 
     // Utility
@@ -54,7 +52,6 @@ int main() {
 
     // Point of Injection
     while(1) {
-
         if (read_ps2_data_ASM(&to_read)) {
             switch (to_read) {
                 case 0x1C: // A -> C
@@ -197,12 +194,8 @@ int main() {
                     is_break = 0;
             }
         }
-        // handle_note_pressed_listener(is_specific_btn_pressed, &is_break, &to_read, &ampl);
-
         if (hps_tim0_int_flag == 1) {
-
             hps_tim0_int_flag = 0;
-
             int i = 0, count_note = 0;
             int total = 0;
             for (i = 0; i < NUM_NOTES; i++) {
@@ -211,27 +204,21 @@ int main() {
                     count_note = count_note + 1;
                 }
             }
-            if (count_note > 0) signal = (total * ampl) / (10);
-            else signal = 0;
+            if (count_note > 0) 
+                signal = (total * ampl) / (10);
+            else 
+                signal = 0;
             instance = (instance + 1) % 48000;
-
             audio_write_data_ASM(signal << 3, signal << 3);
-
             int col = instance % (refresh);
-
             if (col >=0 && col <=319) {
                 VGA_draw_point_ASM(col, display[col], 0x8EFF);
                 display[col] = (int)(((double)signal / (AMP * count_note)) * 80) + 140;
                 VGA_draw_point_ASM(col, display[col], 0xFA0B);
             }
-            if (col == refresh - 1) {
+            if (col == refresh - 1) 
                 render(ampl, is_specific_btn_pressed);
-            }
-
         }
-
     }
-
     return 0;
-
 }
