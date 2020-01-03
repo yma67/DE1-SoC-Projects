@@ -9,10 +9,10 @@ read_LEDs_ASM:
     BX LR
 
 write_LEDs_ASM: 
-	PUSH {R1}
+    PUSH {R1}
     LDR R1, =LED_BASE
     STR R0, [R1]
-	POP {R1}
+    POP {R1}
     BX LR
 
     .end
